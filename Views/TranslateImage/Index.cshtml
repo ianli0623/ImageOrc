@@ -1,0 +1,91 @@
+﻿@model Project.Models.TranslateImageModel;
+
+@{
+    ViewData["Title"] = "TranslateImage";
+}
+<form asp-action="Index" method="post" enctype="multipart/form-data">
+    <div class="row justify-content-start mb-1">
+        @Html.DropDownListFor(model => model.SelectLanguage, Model.SelectLanguageList, new { @class = "custom-select name bg" })
+        <div class="input-group mb-3">
+            <div class="custom-file col-lg-4 col-md-8 col-sm-9 col-12 mr-3 mb-2">
+                <input type="file" class="custom-file-input"
+                       aria-describedby="inputGroupFileAddon02" asp-for="PhotoUpload" accept="image/*">
+                <label id="photoLabel" class="custom-file-label"
+                       for="PhotoUpload">請選擇檔案...</label>
+            </div>
+        </div>
+        <div id="abc" class="col-md-8 col-12 pl-0"></div>
+        <div class="formWarning">
+            <span id="imgErr"></span>
+        </div>
+        <div class="col-md-8 col-12 pl-0">
+            @Model.ShowText
+        </div>
+        <div class="col-md-8 col-12 pl-0">
+            @Model.ShowTranslateText
+        </div>
+    </div>
+    <button type="submit" class="btn-wt blue mr-auto">@*<img src="~/images/icon/icon-search.svg">*@上傳</button>
+</form>
+
+<!--js functions-->
+@section Scripts{
+    @*<script type="text/javascript" src="~/libary/webcam-easy/dist/webcam-easy.min.js"></script>*@
+    <script src="~/js/TranslateImage.js"></script>
+    @*<script>
+            //webcam功能
+            //(要有https才能正常顯示，要不然會出現""Cannot read property 'getUserMedia' of undefined")
+            const webcamElement = document.getElementById('webcam');
+            const canvasElement = document.getElementById('canvas');
+            const snapSoundElement = document.getElementById('snapSound');
+            const webcam = new Webcam(webcamElement, 'environment', canvasElement, snapSoundElement);
+
+            $('#openWebcamModalBTNID').on('click', function (e) {
+                e.preventDefault();
+                webcam.start()
+                    .then(result => {
+                        console.log("webcam started");
+                        $("#download-photo").addClass("d-none");
+                        $("#resume-camera").addClass("d-none");
+                        $("#take-photo").removeClass("d-none");
+                        $("#webcamModal").modal('show');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+
+                $("#take-photo").on("click", function () {
+                    let picture = webcam.snap();
+                    var img = document.getElementById('img');
+
+                    img.src = picture;
+                    img.setAttribute("style", "")
+
+                    document.querySelector('#download-photo').href = picture;
+                    $("#exit-app").addClass("d-none");
+                    $("#download-photo").removeClass("d-none");
+                    $("#resume-camera").removeClass("d-none");
+                    $("#take-photo").addClass("d-none");
+                })
+                $("#resume-camera").on("click", function () {
+                    var img = document.getElementById('img');
+                    img.setAttribute("style", "display:none")
+                    $("#exit-app").removeClass("d-none");
+                    $("#download-photo").addClass("d-none");
+                    $("#resume-camera").addClass("d-none");
+                    $("#take-photo").removeClass("d-none");
+                })
+                $("#exit-app").on("click", function () {
+                    webcam.stop();
+                    console.log("webcam stop");
+
+                    $("#exit-app").removeClass("d-none");
+                    $("#download-photo").addClass("d-none");
+                    $("#resume-camera").addClass("d-none");
+                    $("#take-photo").removeClass("d-none");
+                    $("#webcamModal").modal('hide');
+                })
+
+            })
+        </script>*@
+}
